@@ -14,42 +14,46 @@ public class GitHubProvider {
 
     public String getAccessToken(AccessTokenDTO accessTokenDTO) {
 
-        MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-        String url = "https://github.com/login/oauth/access_token";
-        String jsonParam = JSON.toJSONString(accessTokenDTO);
-        String token = "";
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = RequestBody.create(mediaType, jsonParam);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            String result = response.body().string();
-            if (result!=null&&!"".equals(result)) {
-                token = result.split("&")[0].split("=")[1];
-            }
-        } catch (IOException e) {
-        }
-
-        return token;
+//        MediaType mediaType = MediaType.get("application/json; charset=utf-8");
+//        String url = "https://github.com/login/oauth/access_token";
+//        String jsonParam = JSON.toJSONString(accessTokenDTO);
+//        String token = "";
+//        OkHttpClient client = new OkHttpClient();
+//        RequestBody body = RequestBody.create(mediaType, jsonParam);
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .post(body)
+//                .build();
+//        try {
+//            Response response = client.newCall(request).execute();
+//            String result = response.body().string();
+//            if (result!=null&&!"".equals(result)) {
+//                token = result.split("&")[0].split("=")[1];
+//            }
+//        } catch (IOException e) {
+//        }
+//
+//        return token;
+        return "2A23786E893C1U32ASH2B3YH";
     }
 
     public UserDTO getUser(String token){
-        UserDTO user = null;
-        OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url("https://api.github.com/user?access_token="+token)
-                    .build();
-        try {
-            Response response = client.newCall(request).execute();
-            String result = response.body().string();
-            System.out.println(result);
-            user = JSON.parseObject(result,UserDTO.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        UserDTO user = null;
+//        OkHttpClient client = new OkHttpClient();
+//            Request request = new Request.Builder()
+//                    .url("https://api.github.com/user?access_token="+token)
+//                    .build();
+//        try {
+//            Response response = client.newCall(request).execute();
+//            String result = response.body().string();
+//            System.out.println(result);
+//            user = JSON.parseObject(result,UserDTO.class);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        UserDTO user = new UserDTO();
+        user.setName("zmld-cn");
+        user.setId(561916L);
         return  user;
     }
 

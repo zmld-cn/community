@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -37,7 +39,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callBack(@RequestParam(name="code") String code,
                            @RequestParam(name="state") String state,
-                           HttpServletRequest request){
+                           HttpServletRequest request, HttpServletResponse response){
 
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
@@ -56,7 +58,8 @@ public class AuthorizeController {
             userModel.setGmtCreate(System.currentTimeMillis());
             userModel.setGmtMotified(userModel.getGmtCreate());
             userMapper.insert(userModel);
-            request.getSession().setAttribute("user",user);
+            //request.getSession().setAttribute("user",user);
+            response.addCookie(new Cookie("token",token));
             return "redirect:/";
         } else {
             //登录失败，重新登录
